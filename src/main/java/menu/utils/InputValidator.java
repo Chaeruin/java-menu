@@ -1,5 +1,7 @@
 package menu.utils;
 
+import java.util.List;
+import menu.domain.Menu;
 import menu.enums.ErrorMessage;
 
 public class InputValidator {
@@ -18,6 +20,12 @@ public class InputValidator {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LENGTH_MENU.getErrorMessage());
         }
         return true;
+    }
+
+    public static void isMenuFinded(List<Menu> categoryMenus, String name) {
+        if (Finder.findMenuByName(categoryMenus, name) == null) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_MENU.getErrorMessage());
+        }
     }
 
 }

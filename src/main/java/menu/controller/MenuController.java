@@ -16,6 +16,8 @@ public class MenuController {
         this.outputView = outputView;
     }
 
+    static List<Menu> categoryMenus;
+
     public void run() {
 
     }
@@ -37,7 +39,7 @@ public class MenuController {
         List<Menu> notMenu = null;
         while (notMenu == null) {
             try {
-                notMenu = InputParser.parseNotMenus(inputView.getCoachesNotMenus(coach));
+                notMenu = InputParser.parseNotMenus(categoryMenus, inputView.getCoachesNotMenus(coach));
                 return notMenu;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
