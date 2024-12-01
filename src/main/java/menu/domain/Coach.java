@@ -15,6 +15,10 @@ public class Coach {
         return this.name;
     }
 
+    public List<Menu> getRecommendedMenu() {
+        return this.recommendedMenu;
+    }
+
     public void setRecommendedMenu(List<Menu> recommendedMenu) {
         this.recommendedMenu = recommendedMenu;
     }
