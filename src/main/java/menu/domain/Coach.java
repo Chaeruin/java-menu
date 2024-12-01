@@ -5,7 +5,7 @@ import menu.enums.ErrorMessage;
 
 public class Coach {
     private final String name;
-    private List<Menu> recommendedMenu;
+    private List<String> recommendedMenu;
 
     public Coach(String name) {
         isLengthOK(name);
@@ -26,11 +26,11 @@ public class Coach {
         return this.name;
     }
 
-    public List<Menu> getRecommendedMenu() {
+    public List<String> getRecommendedMenu() {
         return this.recommendedMenu;
     }
 
-    public void setRecommendedMenu(List<Menu> recommendedMenu) {
+    public void setRecommendedMenu(List<String> recommendedMenu) {
         this.recommendedMenu = recommendedMenu;
     }
 }

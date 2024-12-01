@@ -2,7 +2,6 @@ package menu.view;
 
 import java.util.List;
 import menu.domain.Coach;
-import menu.domain.Menu;
 import menu.enums.Category;
 
 public class OutputView {
@@ -32,8 +31,8 @@ public class OutputView {
 
     public void printMenusOneCoach(Coach coach) {
         System.out.print("[ " + coach.getName() + " ");
-        for (Menu menu : coach.getRecommendedMenu()) {
-            System.out.print("| " + menu.getName() + " ");
+        for (String menu : coach.getRecommendedMenu()) {
+            System.out.print("| " + menu + " ");
         }
         System.out.println("]");
     }
