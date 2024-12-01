@@ -1,8 +1,8 @@
 # 미션 - 점심 메뉴 추천
 
 (5시간 제한) <br>
-10:30 시작 <br>
--> 15:30 종료 예정 <br>
+10:50 시작 <br>
+-> 15:50 종료 예정 <br>
 
 <br><br>
 
@@ -111,7 +111,7 @@
 ## 🎯 프로그래밍 요구 사항
 
 - JDK 11 버전에서 실행 가능해야 한다. **JDK 11에서 정상적으로 동작하지 않을 경우 0점 처리한다.**
-- 프로그램 실행의 시작점은 `Application`의 `main()`이다.
+- 프로그램 실행의 시작점은 `menu.Application`의 `main()`이다.
 - `build.gradle` 파일을 변경할 수 없고, 외부 라이브러리를 사용하지 않는다.
 - [Java 코드 컨벤션](https://github.com/woowacourse/woowacourse-docs/tree/master/styleguide/java) 가이드를
   준수하며 프로그래밍한다.
