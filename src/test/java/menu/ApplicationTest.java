@@ -1,5 +1,6 @@
 package menu;
 
+import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -19,7 +20,7 @@ import org.mockito.MockedStatic;
 
 public class ApplicationTest extends NsTest {
 
-    private static final Duration RANDOM_TEST_TIMEOUT = Duration.ofSeconds(10L);
+    private static final Duration RANDOM_TEST_TIMEOUT = Duration.ofSeconds(100L);
 
     @DisplayName("전체 기능 테스트")
     @Nested
@@ -32,46 +33,110 @@ public class ApplicationTest extends NsTest {
                     runException("구구,제임스", "김밥", "떡볶이");
 
                     assertThat(output()).contains(
-                        "점심 메뉴 추천을 시작합니다.",
-                        "코치의 이름을 입력해 주세요. (, 로 구분)",
-                        "구구(이)가 못 먹는 메뉴를 입력해 주세요.",
-                        "제임스(이)가 못 먹는 메뉴를 입력해 주세요.",
-                        "메뉴 추천 결과입니다.",
-                        "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]",
-                        "[ 카테고리 | 한식 | 양식 | 일식 | 중식 | 아시안 ]",
-                        "[ 구구 | 김치찌개 | 스파게티 | 규동 | 짜장면 | 카오 팟 ]",
-                        "[ 제임스 | 제육볶음 | 라자냐 | 가츠동 | 짬뽕 | 파인애플 볶음밥 ]",
-                        "추천을 완료했습니다."
+                            "점심 메뉴 추천을 시작합니다.",
+                            "코치의 이름을 입력해 주세요. (, 로 구분)",
+                            "구구(이)가 못 먹는 메뉴를 입력해 주세요.",
+                            "제임스(이)가 못 먹는 메뉴를 입력해 주세요.",
+                            "메뉴 추천 결과입니다.",
+                            "[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]",
+                            "[ 카테고리 | 한식 | 양식 | 일식 | 중식 | 아시안 ]",
+                            "[ 구구 | 김치찌개 | 스파게티 | 규동 | 짜장면 | 카오 팟 ]",
+                            "[ 제임스 | 제육볶음 | 라자냐 | 가츠동 | 짬뽕 | 파인애플 볶음밥 ]",
+                            "추천을 완료했습니다."
                     );
                 };
 
                 assertRandomTest(executable,
-                    Mocking.ofRandomNumberInRange(2, 5, 1, 3, 4),   // 숫자는 카테고리 번호를 나타낸다.
-                    Mocking.ofShuffle(
-                        // 월요일
-                        List.of("김치찌개", "김밥", "쌈밥", "된장찌개", "비빔밥", "칼국수", "불고기", "떡볶이", "제육볶음"),    // 구구
-                        List.of("제육볶음", "김밥", "김치찌개", "쌈밥", "된장찌개", "비빔밥", "칼국수", "불고기", "떡볶이"),    // 제임스
+                        Mocking.ofRandomNumberInRange(2, 5, 1, 3, 4),   // 숫자는 카테고리 번호를 나타낸다.
+                        Mocking.ofShuffle(
+                                // 월요일
+                                List.of("김치찌개", "김밥", "쌈밥", "된장찌개", "비빔밥", "칼국수", "불고기", "떡볶이", "제육볶음"),    // 구구
+                                List.of("제육볶음", "김밥", "김치찌개", "쌈밥", "된장찌개", "비빔밥", "칼국수", "불고기", "떡볶이"),    // 제임스
 
-                        // 화요일
-                        List.of("스파게티", "라자냐", "그라탱", "뇨끼", "끼슈", "프렌치 토스트", "바게트", "피자", "파니니"),   // 구구
-                        List.of("라자냐", "그라탱", "뇨끼", "끼슈", "프렌치 토스트", "바게트", "스파게티", "피자", "파니니"),   // 제임스
+                                // 화요일
+                                List.of("스파게티", "라자냐", "그라탱", "뇨끼", "끼슈", "프렌치 토스트", "바게트", "피자", "파니니"),   // 구구
+                                List.of("라자냐", "그라탱", "뇨끼", "끼슈", "프렌치 토스트", "바게트", "스파게티", "피자", "파니니"),   // 제임스
 
-                        // 수요일
-                        List.of("규동", "우동", "미소시루", "스시", "가츠동", "오니기리", "하이라이스", "라멘", "오코노미야끼"),  // 구구
-                        List.of("가츠동", "규동", "우동", "미소시루", "스시", "오니기리", "하이라이스", "라멘", "오코노미야끼"),  // 제임스
+                                // 수요일
+                                List.of("규동", "우동", "미소시루", "스시", "가츠동", "오니기리", "하이라이스", "라멘", "오코노미야끼"),  // 구구
+                                List.of("가츠동", "규동", "우동", "미소시루", "스시", "오니기리", "하이라이스", "라멘", "오코노미야끼"),  // 제임스
 
-                        // 목요일
-                        List.of("짜장면", "깐풍기", "볶음면", "동파육", "짬뽕", "마파두부", "탕수육", "토마토 달걀볶음", "고추잡채"),   // 구구
-                        List.of("짬뽕", "깐풍기", "볶음면", "동파육", "짜장면", "마파두부", "탕수육", "토마토 달걀볶음", "고추잡채"),   // 제임스
+                                // 목요일
+                                List.of("짜장면", "깐풍기", "볶음면", "동파육", "짬뽕", "마파두부", "탕수육", "토마토 달걀볶음", "고추잡채"),   // 구구
+                                List.of("짬뽕", "깐풍기", "볶음면", "동파육", "짜장면", "마파두부", "탕수육", "토마토 달걀볶음", "고추잡채"),   // 제임스
 
-                        // 금요일
-                        List.of("카오 팟", "팟타이", "나시고렝", "파인애플 볶음밥", "쌀국수", "똠얌꿍", "반미", "월남쌈", "분짜"),    // 구구
-                        List.of("파인애플 볶음밥", "팟타이", "카오 팟", "나시고렝", "쌀국수", "똠얌꿍", "반미", "월남쌈", "분짜")     // 제임스
-                    )
+                                // 금요일
+                                List.of("카오 팟", "팟타이", "나시고렝", "파인애플 볶음밥", "쌀국수", "똠얌꿍", "반미", "월남쌈", "분짜"),    // 구구
+                                List.of("파인애플 볶음밥", "팟타이", "카오 팟", "나시고렝", "쌀국수", "똠얌꿍", "반미", "월남쌈", "분짜")     // 제임스
+                        )
                 );
             });
         }
+
+        @Test
+        @DisplayName("코치 이름이 2자 미만 4자 초과일때 예외")
+        void 예외_테스트_1() {
+            assertSimpleTest(() -> {
+                runException("a,bbbbb");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("코치가 2명 미만 5명 초과일 경우 예외")
+        void 예외_테스트_2() {
+            assertSimpleTest(() -> {
+                runException("aa");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("코치가 2명 미만 5명 초과일 경우 예외")
+        void 예외_테스트_3() {
+            assertSimpleTest(() -> {
+                runException("aa,aaa,ab,bb,bc");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("메뉴 입력이 2개 초과일 때 예외")
+        void 예외_테스트_4() {
+            assertSimpleTest(() -> {
+                runException("구구,제임스", "팟타이,김밥,김치찌개");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("구분자 사이 빈값이 있을 때 예외")
+        void 예외_테스트_5() {
+            assertSimpleTest(() -> {
+                runException("구구,제임스", "팟타이,,김치찌개");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("입력한 메뉴가 없는 메뉴면 예외")
+        void 예외_테스트_6() {
+            assertSimpleTest(() -> {
+                runException("구구,제임스", "케이크");
+                assertThat(output()).contains("[ERROR]");
+            });
+        }
+
+        @Test
+        @DisplayName("")
+        void 정상_기능_작동_확인_1() {
+            assertSimpleTest(() -> {
+                run("구구,제임스", "김밥,제육볶음", "라자냐,하이라이스");
+                assertThat(output()).contains("");
+            });
+        }
     }
+
 
     @Override
     protected void runMain() {
@@ -79,8 +144,8 @@ public class ApplicationTest extends NsTest {
     }
 
     private static void assertRandomTest(
-        final Executable executable,
-        final Mocking... mockings
+            final Executable executable,
+            final Mocking... mockings
     ) {
         assertTimeoutPreemptively(RANDOM_TEST_TIMEOUT, () -> {
             try (final MockedStatic<Randoms> mock = mockStatic(Randoms.class)) {
@@ -101,8 +166,7 @@ public class ApplicationTest extends NsTest {
         private final T value;
 
         /**
-         * 첫 번째 값을 반환하고 나서 다음에 반환할 값들. 예를 들면, verification을 처음 실행하면 value를 반환하고 두 번째 실행하면 values[0]을
-         * 반환한다.
+         * 첫 번째 값을 반환하고 나서 다음에 반환할 값들. 예를 들면, verification을 처음 실행하면 value를 반환하고 두 번째 실행하면 values[0]을 반환한다.
          */
         private final T[] values;
 

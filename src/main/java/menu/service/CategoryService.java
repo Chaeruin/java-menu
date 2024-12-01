@@ -22,8 +22,9 @@ public class CategoryService {
 
     public List<Category> getCategoryWeek() {
         List<Category> weeklyCategory = new LinkedList<>();
+        List<Integer> randomPick = randomPickNumberNotDuplicate();
         for (int i = MONDAY; i <= FRIDAY; i++) {
-            weeklyCategory.add(getCategoryByRandomPick(randomPickNumberNotDuplicate().get(i)));
+            weeklyCategory.add(getCategoryByRandomPick(randomPick.get(i)));
         }
         return weeklyCategory;
     }
@@ -42,7 +43,7 @@ public class CategoryService {
         for (int i = 0; i <= 4; i++) {
             integers.add(randomPickGenerator.getRandomCategory());
             if (i >= 2 && isDuplicateUpto3(integers)) {
-                integers.removeLast();
+                integers.remove(integers.size() - 1);
                 i--;
             }
         }
@@ -51,7 +52,7 @@ public class CategoryService {
     }
 
     public boolean isDuplicateUpto3(List<Integer> integers) {
-        int last = integers.getLast();
+        int last = integers.get(integers.size() - 1);
         Map<Integer, Integer> map = integers.stream().collect(
                 Collectors.toMap(Function.identity(), value -> 1, Integer::sum));
 

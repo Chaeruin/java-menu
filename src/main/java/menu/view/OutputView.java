@@ -19,7 +19,7 @@ public class OutputView {
         System.out.println("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
         System.out.print("[ 카테고리 ");
         for (Category category : categories) {
-            System.out.print("| " + category + " ");
+            System.out.print("| " + category.getName() + " ");
         }
         System.out.println("]");
         for (Coach coach : coaches) {

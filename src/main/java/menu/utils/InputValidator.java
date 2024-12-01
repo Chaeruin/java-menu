@@ -8,7 +8,7 @@ public class InputValidator {
 
     public static boolean isCoachNumberOK(String input) {
         String[] inputs = input.split(",", -1);
-        if (inputs.length < 2 || inputs.length > 5) {
+        if (inputs.length < 2 || inputs.length > 4) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_LENGTH_NUMBER.getErrorMessage());
         }
         return true;
@@ -23,7 +23,7 @@ public class InputValidator {
     }
 
     public static void isMenuFinded(List<Menu> categoryMenus, String name) {
-        if (Finder.findMenuByName(categoryMenus, name) == null) {
+        if (!name.equals("") && Finder.findMenuByName(categoryMenus, name) == null) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_MENU.getErrorMessage());
         }
     }

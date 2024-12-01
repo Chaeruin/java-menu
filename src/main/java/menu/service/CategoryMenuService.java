@@ -2,15 +2,19 @@ package menu.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
-import menu.domain.Menu;
 
 public class CategoryMenuService {
 
-    public String getTodayWhatCategoryToMenu(List<String> categoryMenus, List<String> already, List<Menu> notMenu) {
+    public String getTodayWhatCategoryToMenu(List<String> categoryMenus, List<String> already, List<String> notMenu) {
         String menu = Randoms.shuffle(categoryMenus).get(0);
-        for (Menu m : notMenu) {
-            for (String alr : already) {
-                while (!m.getName().equals(menu) && !m.getName().equals(alr)) {
+        for (String alr : already) {
+            while (menu.equals(alr)) {
+                menu = Randoms.shuffle(categoryMenus).get(0);
+            }
+        }
+        if (notMenu != null) {
+            for (String m : notMenu) {
+                while (menu.equals(m)) {
                     menu = Randoms.shuffle(categoryMenus).get(0);
                 }
             }

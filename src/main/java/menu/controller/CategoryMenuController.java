@@ -1,12 +1,16 @@
 package menu.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import menu.domain.Coach;
 import menu.domain.Menu;
 import menu.enums.Category;
 import menu.service.CategoryMenuInitializerService;
 import menu.service.CategoryMenuService;
+import menu.utils.Finder;
 
 public class CategoryMenuController {
 
@@ -19,19 +23,35 @@ public class CategoryMenuController {
         this.categoryMenuService = categoryMenuService;
     }
 
-    public List<String> getWeeklyWhatCategoryToMenu(List<Category> categories, List<Menu> notMenu) {
-        List<String> weekly = new LinkedList<>();
+    static List<Menu> categoryMenus;
+
+    public Map<Coach, List<String>> getWeeklyWhatCategoryToMenu(List<Coach> coaches, List<Category> categories,
+                                                                Map<Coach, List<String>> notMenu) {
+        categoryMenus = categoryMenuInitializerService.setMenuToCategoryGroups();
+        Map<Coach, List<String>> coachesWeekly = initialize(coaches);
         for (Category category : categories) {
-            List<Menu> menu = new ArrayList<>();
-            sameCategoryMenus(category, menu, notMenu);
-            weekly.add(categoryMenuService.getTodayWhatCategoryToMenu(getGroupByCategory(category), weekly, menu));
+            for (Coach coach : coaches) {
+                List<String> menu = new ArrayList<>();
+                sameCategoryMenus(category, menu, notMenu.get(coach));
+                coachesWeekly.get(coach)
+                        .add(categoryMenuService.getTodayWhatCategoryToMenu(getGroupByCategory(category),
+                                coachesWeekly.get(coach), menu));
+            }
         }
-        return weekly;
+        return coachesWeekly;
     }
 
-    public void sameCategoryMenus(Category category, List<Menu> menu, List<Menu> notMenu) {
-        for (Menu m : notMenu) {
-            if (m.getCategory() == category) {
+    public Map<Coach, List<String>> initialize(List<Coach> coaches) {
+        Map<Coach, List<String>> coachesWeekly = new HashMap<>();
+        for (Coach coach : coaches) {
+            coachesWeekly.put(coach, new LinkedList<>());
+        }
+        return coachesWeekly;
+    }
+
+    public void sameCategoryMenus(Category category, List<String> menu, List<String> notMenu) {
+        for (String m : notMenu) {
+            if (Finder.findCategoryByMenuName(categoryMenus, m) == category) {
                 menu.add(m);
             }
         }

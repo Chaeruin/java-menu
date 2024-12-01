@@ -18,13 +18,13 @@ public class InputParser {
         return coaches;
     }
 
-    public static List<Menu> parseNotMenus(List<Menu> categoryMenus, String input) {
-        List<Menu> notMenu = new ArrayList<>();
+    public static List<String> parseNotMenus(List<Menu> categoryMenus, String input) {
+        List<String> notMenu = new ArrayList<>();
         if (InputValidator.isMenuNumberOK(input)) {
             String[] inputs = input.split(",");
             for (int i = 0; i < inputs.length; i++) {
                 InputValidator.isMenuFinded(categoryMenus, inputs[i]);
-                notMenu.add(new Menu(inputs[i], Finder.findCategoryByMenuName(categoryMenus, inputs[i])));
+                notMenu.add(inputs[i]);
             }
         }
         return notMenu;
