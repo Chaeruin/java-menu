@@ -41,14 +41,12 @@ public class MenuController {
             notCoachMenu.put(coach, getNotMenusHandler(coach));
             outputView.printEnter();
         }
-
         List<Category> categories = categoryService.getCategoryWeek();
         Map<Coach, List<String>> pickMenus = categoryMenuController.getWeeklyWhatCategoryToMenu(coaches, categories,
                 notCoachMenu);
         for (Coach coach : coaches) {
             coach.setRecommendedMenu(pickMenus.get(coach));
         }
-
         outputView.printCoachesMenu(coaches, categories);
     }
 

@@ -33,8 +33,8 @@ public class CategoryMenuController {
             for (Coach coach : coaches) {
                 List<String> menu = new ArrayList<>();
                 sameCategoryMenus(category, menu, notMenu.get(coach));
-                coachesWeekly.get(coach)
-                        .add(categoryMenuService.getTodayWhatCategoryToMenu(getGroupByCategory(category),
+                coachesWeekly.get(coach).add(
+                        categoryMenuService.getTodayWhatCategoryToMenu(getGroupByCategory(category),
                                 coachesWeekly.get(coach), menu));
             }
         }
